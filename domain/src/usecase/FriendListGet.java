@@ -27,7 +27,7 @@ public class FriendListGet extends UseCase<ArrayList<User>, FriendListGet.Params
         private Token token;
         private User owner;
 
-        public Params(Token token, User sendFrom) {
+        public Params(Token token, User owner) {
             this.token = token;
             this.owner = owner;
         }
