@@ -1,8 +1,10 @@
+import view.FriendListView;
+
 /**
- * Created by danpa on 28.09.2017.
+ * Точка входа в приложение.
  */
 public class Main {
     public static void main(String[] args){
-
+        new FriendListView();
     }
 }
