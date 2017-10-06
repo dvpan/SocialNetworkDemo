@@ -1,28 +1,42 @@
 package repository;
 
+import db.DatabaseSingleton;
 import model.Message;
-import model.Token;
+import model.PublicMessage;
 import model.User;
 import tool.AsyncCallback;
 
 import java.util.ArrayList;
 
 /**
- * Заглушка, представляющая собой реализацию класса {@link DataRepository} из модуля domain.
+ * Реализация класса {@link DataRepository} из модуля domain.
  */
 public class DataRepositoryImpl implements DataRepository {
-    @Override
-    public void sendMessage(AsyncCallback<Boolean> callback, Token token, User sendFrom, User sendTo) {
 
+    @Override
+    public void getMessageList(AsyncCallback<ArrayList<Message>> callback, String token, String login) {
+        DatabaseSingleton inst = DatabaseSingleton.getInstance();
+        ArrayList<Message> messages = inst.getMessageList(token, login);
+
+        if(messages == null || messages.isEmpty()) callback.onFailure(new Exception());
+        else callback.onSuccess(messages);
     }
 
     @Override
-    public void getMessageList(AsyncCallback<ArrayList<Message>> callback, Token token, User owner) {
+    public void getFriendList(AsyncCallback<ArrayList<User>> callback, String token) {
+        DatabaseSingleton inst = DatabaseSingleton.getInstance();
+        ArrayList<User> users = inst.getFriendList(token);
 
+        if(users != null) callback.onSuccess(users);
+        else callback.onFailure(new Exception());
     }
 
     @Override
-    public void getFriendList(AsyncCallback<ArrayList<User>> callback, Token token, User owner) {
+    public void getPublicMessageList(AsyncCallback<ArrayList<PublicMessage>> callback, String token, String login) {
+        DatabaseSingleton inst = DatabaseSingleton.getInstance();
+        ArrayList<PublicMessage> messages = inst.getPublicMessageList(token, login);
 
+        if(messages == null || messages.isEmpty()) callback.onFailure(new Exception());
+        else callback.onSuccess(messages);
     }
 }

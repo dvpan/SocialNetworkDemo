@@ -13,6 +13,10 @@ public abstract class Presenter <T extends Presenter.View>{
         return view;
     }
 
+    public void init(){}
+
+
+
 
     /**
      * Интерфейс, содержащий методы работы с View.

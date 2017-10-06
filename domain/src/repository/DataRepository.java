@@ -1,7 +1,7 @@
 package repository;
 
 import model.Message;
-import model.Token;
+import model.PublicMessage;
 import model.User;
 import tool.AsyncCallback;
 
@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * Содержит действия, которые связаны с получением данных.
  */
 public interface DataRepository {
-    void sendMessage(AsyncCallback<Boolean> callback, Token token, User sendFrom, User sendTo);
-    void getMessageList(AsyncCallback<ArrayList<Message>> callback, Token token, User owner);
-    void getFriendList(AsyncCallback<ArrayList<User>> callback, Token token, User owner);
+    void getMessageList(AsyncCallback<ArrayList<Message>> callback, String token, String login);
+    void getFriendList(AsyncCallback<ArrayList<User>> callback, String token);
+
+    void getPublicMessageList(AsyncCallback<ArrayList<PublicMessage>> callback, String token, String login);
 }

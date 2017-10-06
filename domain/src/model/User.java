@@ -5,50 +5,51 @@ package model;
  */
 public class User {
     private Integer id;
-    private String coverUrl;
-    private String firstName;
-    private String secondName;
-    private String email;
+    private String name;
+    private String login;
     private String description;
+    private Integer hashPass;
 
-    public User(Integer id, String coverUrl, String firstName, String secondName, String email, String description) {
+    public User(Integer id, String name, String login, String description) {
         this.id = id;
-        this.coverUrl = coverUrl;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.email = email;
+        this.name = name;
+        this.login = login;
         this.description = description;
     }
 
-    public User(String coverUrl, String firstName, String secondName, String email, String description) {
-        this.coverUrl = coverUrl;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.email = email;
-        this.description = description;
+    public User(String name, String login) {
+        this.name = name;
+        this.login = login;
+    }
+
+    public User(String name, String login, Integer hashPass) {
+        this.name = name;
+        this.login = login;
+        this.hashPass = hashPass;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public String getCoverUrl() {
-        return coverUrl;
+    public String getName() {
+        return name;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public Integer getPassword() {
+        return hashPass;
+    }
+
+    public User setId(int id) {
+        this.id = id;
+        return this;
     }
 }

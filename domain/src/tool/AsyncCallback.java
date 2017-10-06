@@ -5,6 +5,8 @@ package tool;
  * для того чтобы получить ответ от процедуры, вызванной удаленно.
  */
 public abstract class AsyncCallback<T> {
+    public void onSuccess(){}
     public void onSuccess(T obj){}
     public void onFailure(Throwable caught){}
 }
+

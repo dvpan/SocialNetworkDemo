@@ -1,36 +1,34 @@
 package usecase;
 
 import base.UseCase;
-import model.Token;
-import model.User;
-import repository.DataRepository;
+import repository.ActionRepository;
 import tool.AsyncCallback;
 
 /**
  * UseCase, предназначенный для отправления сообщения
  * от авторизованного пользователя другому пользователю.
  */
-public class MessageSend extends UseCase<Boolean, MessageSend.Params> {
-    private final DataRepository mRepository;
+public class MessageSend extends UseCase<Void, MessageSend.Params> {
+    private final ActionRepository mRepository;
 
-    public MessageSend(DataRepository repository) {
+    public MessageSend(ActionRepository repository) {
         mRepository = repository;
     }
 
     @Override
-    protected void createAsyncUseCase(AsyncCallback<Boolean> callback, Params params) {
-        mRepository.sendMessage(callback, params.token, params.sendFrom, params.sendTo);
+    protected void createAsyncUseCase(AsyncCallback<Void> callback, Params params) {
+        mRepository.sendMessage(callback, params.token, params.login, params.text);
     }
 
     public static final class Params{
-        private Token token;
-        private User sendFrom;
-        private User sendTo;
+        private String token;
+        private String login;
+        private String text;
 
-        public Params(Token token, User sendFrom, User sendTo) {
+        public Params(String token, String login, String text) {
             this.token = token;
-            this.sendFrom = sendFrom;
-            this.sendTo = sendTo;
+            this.login = login;
+            this.text = text;
         }
     }
 }

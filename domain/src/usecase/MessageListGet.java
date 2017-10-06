@@ -2,8 +2,6 @@ package usecase;
 
 import base.UseCase;
 import model.Message;
-import model.Token;
-import model.User;
 import repository.DataRepository;
 import tool.AsyncCallback;
 
@@ -21,16 +19,16 @@ public class MessageListGet extends UseCase<ArrayList<Message>, MessageListGet.P
 
     @Override
     protected void createAsyncUseCase(AsyncCallback<ArrayList<Message>> callback, Params params) {
-        mRepository.getMessageList(callback, params.token, params.owner);
+        mRepository.getMessageList(callback, params.token, params.login);
     }
 
     public static final class Params{
-        private Token token;
-        private User owner;
+        private String token;
+        private String login;
 
-        public Params(Token token, User owner) {
+        public Params(String token, String login) {
             this.token = token;
-            this.owner = owner;
+            this.login = login;
         }
     }
 }

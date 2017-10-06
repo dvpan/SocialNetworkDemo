@@ -1,15 +1,17 @@
 package repository;
 
-import model.Token;
-import model.User;
 import tool.AsyncCallback;
+import usecase.UserSignIn;
+import usecase.UserSignUp;
 
 /**
  * Интерфейс репозитория, объявляющий методы работы с ним.
  * Содержит действия, которые не связаны с получением данных.
  */
 public interface ActionRepository {
-    void registration(AsyncCallback<Boolean> callback, User user);
-    void login(AsyncCallback<Token> callback, User user);
-    void addToFriendList(AsyncCallback<Boolean> callback, Token token, User sendFrom, User sendTo);
+    void signUp(AsyncCallback<Boolean> callback, UserSignUp.Params params);
+    void signIn(AsyncCallback<String> callback, UserSignIn.Params params);
+    void addToFriendList(AsyncCallback<Boolean> callback, String token, String login);
+    void sendMessage(AsyncCallback<Void> callback, String token, String login, String text);
+    void sendPublicMessage(AsyncCallback<Void> callback, String token, String text);
 }

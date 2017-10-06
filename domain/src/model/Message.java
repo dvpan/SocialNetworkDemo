@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 /**
  * Класс, представляющий собой сообщения, которые пользователи могут отправлять друг другу.
  */
@@ -10,8 +8,13 @@ public class Message {
     private Integer userFromId;
     private Integer userToId;
 
+    private String userFromName;
+    private String userToame;
+
     private String text;
     private Long date;
+
+
 
     public Message(Integer id, Integer userFromId, Integer userToId, String text, Long date) {
         this.id = id;
@@ -21,11 +24,18 @@ public class Message {
         this.date = date;
     }
 
-    public Message(Integer userFromId, Integer userToId, String text) {
+    public Message(Integer userFromId, Integer userToId, String text, Long date) {
         this.userFromId = userFromId;
         this.userToId = userToId;
         this.text = text;
-        this.date = new Date().getTime();
+        this.date = date;
+    }
+
+    public Message(String text, String from, String to, Long date) {
+        this.text = text;
+        this.userFromName = from;
+        this.userToame = to;
+        this.date = date;
     }
 
     public Integer getId() {
@@ -46,5 +56,13 @@ public class Message {
 
     public Long getDate() {
         return date;
+    }
+
+    public String getUserFromName() {
+        return userFromName;
+    }
+
+    public String getUserToame() {
+        return userToame;
     }
 }

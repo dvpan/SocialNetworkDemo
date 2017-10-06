@@ -1,8 +1,6 @@
 package usecase;
 
 import base.UseCase;
-import model.Token;
-import model.User;
 import repository.ActionRepository;
 import tool.AsyncCallback;
 
@@ -20,18 +18,16 @@ public class FriendListAdd extends UseCase<Boolean, FriendListAdd.Params> {
 
     @Override
     protected void createAsyncUseCase(AsyncCallback<Boolean> callback, FriendListAdd.Params params) {
-        mRepository.addToFriendList(callback, params.token, params.sendFrom, params.sendTo);
+        mRepository.addToFriendList(callback, params.token, params.login);
     }
 
     public static final class Params{
-        private Token token;
-        private User sendFrom;
-        private User sendTo;
+        private String token;
+        private String login;
 
-        public Params(Token token, User sendFrom, User sendTo) {
+        public Params(String token, String login) {
             this.token = token;
-            this.sendFrom = sendFrom;
-            this.sendTo = sendTo;
+            this.login = login;
         }
     }
 }
