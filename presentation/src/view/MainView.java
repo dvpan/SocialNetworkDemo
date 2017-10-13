@@ -3,10 +3,11 @@ package view;
 import model.Message;
 import model.PublicMessage;
 import model.User;
+import model.Word;
 import presenter.MainPresenter;
 import tool.exception.InputCanceledException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MainView extends BaseView implements MainPresenter.View {
     MainPresenter presenter;
@@ -24,7 +25,7 @@ public class MainView extends BaseView implements MainPresenter.View {
         presenter.menuItemEnter(printMenuAndWait(
                 "New Friend", "My Friends",
                 "New Message", "My Messages",
-                "New Public Message", "Read Public Messages",
+                "New Public Message", "Read Public Messages", "Top 10 Words",
                 "Log Out"));
     }
 
@@ -73,7 +74,6 @@ public class MainView extends BaseView implements MainPresenter.View {
         presenter.newPublicMessage(text);
     }
 
-
     @Override
     public void renderPublicMessageList() throws InputCanceledException {
         printTitle("Public Messages");
@@ -83,10 +83,21 @@ public class MainView extends BaseView implements MainPresenter.View {
     }
 
     @Override
-    public void showPublicMessageList(ArrayList<PublicMessage> messages) {
+    public void showPublicMessageList(List<PublicMessage> messages) {
         println("Public Message List: ");
         messages.forEach(message -> println(
                 message.getDate() + ":\n" + message.getText()));
+    }
+
+    @Override
+    public void showRankedMessageList(List<Word> words) {
+        println("Ranked Message List: ");
+        words.forEach(word -> println(word.toString()));
+    }
+
+    @Override
+    public void renderTopMessages()  {
+        presenter.getRankedMessageList();
     }
 
     @Override
@@ -95,15 +106,14 @@ public class MainView extends BaseView implements MainPresenter.View {
     }
 
     @Override
-    public void showFriendList(ArrayList<User> users) {
+    public void showFriendList(List<User> users) {
         println("Friend List: ");
         users.forEach(user -> println(
                 "Name: " + user.getName() + ", Login: " + user.getLogin()));
-
     }
 
     @Override
-    public void showMessageList(ArrayList<Message> messages) {
+    public void showMessageList(List<Message> messages) {
         println("Message List: ");
         messages.forEach(message -> println(
                 message.getUserFromName() + ":\n" + message.getText()));

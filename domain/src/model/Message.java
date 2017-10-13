@@ -14,16 +14,6 @@ public class Message {
     private String text;
     private Long date;
 
-
-
-    public Message(Integer id, Integer userFromId, Integer userToId, String text, Long date) {
-        this.id = id;
-        this.userFromId = userFromId;
-        this.userToId = userToId;
-        this.text = text;
-        this.date = date;
-    }
-
     public Message(Integer userFromId, Integer userToId, String text, Long date) {
         this.userFromId = userFromId;
         this.userToId = userToId;

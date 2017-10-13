@@ -3,6 +3,7 @@ package presenter;
 import model.Message;
 import model.PublicMessage;
 import model.User;
+import model.Word;
 import repository.ActionRepositoryImpl;
 import repository.DataRepositoryImpl;
 import tool.AsyncCallback;
@@ -11,6 +12,7 @@ import tool.exception.InputCanceledException;
 import usecase.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainPresenter extends Presenter<MainPresenter.View> {
     FriendListGet friendListGet;
@@ -45,6 +47,8 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
 
                 case 5: getView().renderNewPublicMessage(); break;
                 case 6: getView().renderPublicMessageList(); break;
+
+                case 7: getView().renderTopMessages(); break;
                 
                 case 0: return;
             }
@@ -144,8 +148,25 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
         }, new MessagePublicListGet.Params(StaticRepository.SESSION_TOKEN, login));
     }
 
+    public void getRankedMessageList() {
+        new MessageListRankedGet(new DataRepositoryImpl()).execute(new AsyncCallback<List<Word>>() {
+            @Override
+            public void onSuccess(List<Word> words) {
+                getView().showRankedMessageList(words);
+                getView().render();
+            }
 
-    public interface View extends Presenter.View{
+            @Override
+            public void onFailure(Throwable caught) {
+                getView().showInfoMessage("No Message Found!");
+                getView().render();
+            }
+
+        }, StaticRepository.SESSION_TOKEN);
+    }
+
+
+    public interface View extends Presenter.View {
         void render();
 
         void inputCanceled();
@@ -160,14 +181,20 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
 
         void renderNewPublicMessage() throws InputCanceledException;
 
-        void showInfoMessage(String message);
-
-        void showFriendList(ArrayList<User> users);
-
-        void showMessageList(ArrayList<Message> messages);
-
         void renderPublicMessageList() throws InputCanceledException;
 
-        void showPublicMessageList(ArrayList<PublicMessage> messages);
+        void renderTopMessages();
+
+        void showInfoMessage(String message);
+
+        void showFriendList(List<User> users);
+
+        void showMessageList(List<Message> messages);
+
+        void showRankedMessageList(List<Word> words);
+
+        void showPublicMessageList(List<PublicMessage> messages);
+
+
     }
 }

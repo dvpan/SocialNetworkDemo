@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Random;
 
 
-public class Database {
+public class DatabaseStorage {
     private List<Friend> friends;
     private List<User> users;
     private HashMap<String, User> tokens;
     private List<Message> messages;
     private List<PublicMessage> publicMessages;
-    
-    public Database() {  }
+
+    public DatabaseStorage() {  }
 
     public void setFriends(List<Friend> friends) {
         this.friends = friends;
@@ -105,4 +105,5 @@ public class Database {
     public List<PublicMessage> getPublicMessages() {
         return publicMessages;
     }
+
 }
