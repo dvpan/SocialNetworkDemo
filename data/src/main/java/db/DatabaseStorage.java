@@ -54,7 +54,8 @@ public class DatabaseStorage {
     }
 
     String createToken(String login) {
-        return String.valueOf(login.hashCode()) + String.valueOf(new Random().nextInt());
+        return String.valueOf(login.hashCode())
+                + String.valueOf(new Random().nextInt());
     }
 
     public List<Friend> getFriends() {
@@ -67,7 +68,6 @@ public class DatabaseStorage {
 
     public User getActiveUser(String token) {
         return tokens.get(token);
-
     }
 
     public String newActiveUser(User user) {

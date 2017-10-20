@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="data" />
+        <module name="domain" />
+        <module name="presentation" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="data" target="1.8" />
+      <module name="domain" target="1.8" />
+      <module name="presentation" target="1.8" />
+      <module name="SocialNetworkPanichev" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

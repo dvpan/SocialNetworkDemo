@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 public abstract class BaseView {
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     abstract void render();
 

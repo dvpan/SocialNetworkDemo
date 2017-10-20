@@ -2,10 +2,10 @@ package model;
 
 
 public class PublicMessage {
-    Integer id;
-    String text;
-    Integer user_id;
-    Long date;
+    private Integer id;
+    private String text;
+    private Integer user_id;
+    private Long date;
 
     public PublicMessage(Integer user_id, String text, Long date) {
         this.text = text;

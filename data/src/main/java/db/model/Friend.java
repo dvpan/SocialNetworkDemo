@@ -4,9 +4,9 @@ package db.model;
  * Created by danpa on 06.10.2017.
  */
 public class Friend {
-    Integer id;
-    Integer userId;
-    Integer friendId;
+    private Integer id;
+    private Integer userId;
+    private Integer friendId;
 
     public Friend(Integer userId, Integer friendId) {
         this.userId = userId;

@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPresenter extends Presenter<MainPresenter.View> {
-    FriendListGet friendListGet;
-    FriendListAdd friendListAdd;
+    private FriendListGet friendListGet;
+    private FriendListAdd friendListAdd;
 
-    MessageListGet messageListGet;
-    MessageSend messageSend;
-    
-    MessagePublicSend messagePublicSend;
-    MessagePublicListGet messagePublicListGet;
+    private MessageListGet messageListGet;
+    private MessageSend messageSend;
+
+    private MessagePublicSend messagePublicSend;
+    private MessagePublicListGet messagePublicListGet;
 
     public MainPresenter() {
         this.friendListGet = new FriendListGet(new DataRepositoryImpl());
