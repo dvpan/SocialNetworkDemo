@@ -4,12 +4,6 @@ import model.Message;
 import model.PublicMessage;
 import model.User;
 import model.Word;
-import repository.remote.FriendRepositoryImpl;
-import repository.remote.MessageRepositoryImpl;
-import repository.remote.PublicMessageRepositoryImpl;
-import repository.remote.dao.FriendDaoSQL;
-import repository.remote.dao.MessageDaoSQL;
-import repository.remote.dao.PublicMessageDaoSQL;
 import tool.AsyncCallback;
 import tool.StaticRepository;
 import tool.exception.InputCanceledException;
@@ -29,17 +23,18 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
     private MessagePublicSend messagePublicSend;
     private MessagePublicListGet messagePublicListGet;
 
-
     public MainPresenter() {
-        this.friendListGet = new FriendListGet(new FriendRepositoryImpl(new FriendDaoSQL()));
-        this.friendListAdd = new FriendListAdd(new FriendRepositoryImpl(new FriendDaoSQL()));
+        this.friendListGet = (FriendListGet) appContext.getBean("friendListGet");
+        this.friendListAdd = (FriendListAdd) appContext.getBean("friendListAdd");
 
-        this.messageSend = new MessageSend(new MessageRepositoryImpl(new MessageDaoSQL()));
-        this.messageListGet = new MessageListGet(new MessageRepositoryImpl(new MessageDaoSQL()));
-        this.messageListRankedGet = new MessageListRankedGet(new MessageRepositoryImpl(new MessageDaoSQL()));
+        this.messageSend = (MessageSend) appContext.getBean("messageSend");
+        this.messageListGet = (MessageListGet) appContext.getBean("messageListGet");
+        this.messageListRankedGet = (MessageListRankedGet) appContext.getBean("messageListRankedGet");
 
-        this.messagePublicSend = new MessagePublicSend(new PublicMessageRepositoryImpl(new PublicMessageDaoSQL()));
-        this.messagePublicListGet = new MessagePublicListGet(new PublicMessageRepositoryImpl(new PublicMessageDaoSQL()));
+        this.messagePublicSend = (MessagePublicSend) appContext.getBean("messagePublicSend");
+        this.messagePublicListGet = (MessagePublicListGet) appContext.getBean("messagePublicListGet");
+
+        this.appContext.close();
     }
 
     public void menuItemEnter(int i) {

@@ -1,7 +1,5 @@
 package presenter;
 
-import repository.remote.UserRepositoryImpl;
-import repository.remote.dao.UserDaoSQL;
 import tool.AsyncCallback;
 import tool.exception.InputCanceledException;
 import usecase.UserSignIn;
@@ -9,20 +7,15 @@ import usecase.UserSignUp;
 
 import static tool.StaticRepository.SESSION_TOKEN;
 
-
 public class UserEnterPresenter extends Presenter<UserEnterPresenter.View>{
-
     UserSignIn userSignIn;
     UserSignUp userSignUp;
 
     public UserEnterPresenter() {
-        this.userSignIn = new UserSignIn(new UserRepositoryImpl(new UserDaoSQL()));
-        this.userSignUp = new UserSignUp(new UserRepositoryImpl(new UserDaoSQL()));
-    }
+        this.userSignIn = (UserSignIn) appContext.getBean("userSignIn");
+        this.userSignUp = (UserSignUp) appContext.getBean("userSignUp");
 
-    @Override
-    public void init() {
-
+        this.appContext.close();
     }
 
     public void signUp(String name, String login, String password) {

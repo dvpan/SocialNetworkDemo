@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <!--- UseCases -->
+    <!--- UseCases -> Friends -->
+    <bean id="friendListGet" class="usecase.FriendListGet">
+        <constructor-arg index="0" ref="friendRepository"/>
+    </bean>
+    <bean id="friendListAdd" class="usecase.FriendListAdd">
+        <constructor-arg index="0" ref="friendRepository"/>
+    </bean>
+
+    <!--- UseCases -> Messages -->
+    <bean id="messageSend" class="usecase.MessageSend">
+        <constructor-arg index="0" ref="messageRepository"/>
+    </bean>
+    <bean id="messageListGet" class="usecase.MessageListGet">
+        <constructor-arg index="0" ref="messageRepository"/>
+    </bean>
+    <bean id="messageListRankedGet" class="usecase.MessageListRankedGet">
+        <constructor-arg index="0" ref="messageRepository"/>
+    </bean>
+
+    <!--- UseCases -> PublicMessages -->
+    <bean id="messagePublicSend" class="usecase.MessagePublicSend">
+        <constructor-arg index="0" ref="publicMessageRepository"/>
+    </bean>
+    <bean id="messagePublicListGet" class="usecase.MessagePublicListGet">
+        <constructor-arg index="0" ref="publicMessageRepository"/>
+    </bean>
+
+    <!--- UseCases -> Users -->
+    <bean id="userSignIn" class="usecase.UserSignIn">
+        <constructor-arg index="0" ref="userRepository"/>
+    </bean>
+    <bean id="userSignUp" class="usecase.UserSignUp">
+        <constructor-arg index="0" ref="userRepository"/>
+    </bean>
+
+    <!--- Repositories -->
+    <bean id="messageRepository" class="repository.remote.MessageRepositoryImpl">
+        <constructor-arg index="0" ref="messageDao"/>
+    </bean>
+    <bean id="publicMessageRepository" class="repository.remote.PublicMessageRepositoryImpl">
+        <constructor-arg index="0" ref="publicMessageDao"/>
+    </bean>
+    <bean id="userRepository" class="repository.remote.UserRepositoryImpl">
+        <constructor-arg index="0" ref="userDao"/>
+    </bean>
+    <bean id="friendRepository" class="repository.remote.FriendRepositoryImpl">
+        <constructor-arg index="0" ref="friendDao"/>
+    </bean>
+
+    <!--- DAOs -->
+    <bean id="messageDao" class="repository.remote.dao.MessageDaoSQL"/>
+    <bean id="publicMessageDao" class="repository.remote.dao.PublicMessageDaoSQL"/>
+    <bean id="userDao" class="repository.remote.dao.UserDaoSQL"/>
+    <bean id="friendDao" class="repository.remote.dao.FriendDaoSQL"/>
+</beans>
