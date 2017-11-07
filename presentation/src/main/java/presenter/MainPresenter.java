@@ -4,8 +4,12 @@ import model.Message;
 import model.PublicMessage;
 import model.User;
 import model.Word;
-import repository.ActionRepositoryImpl;
-import repository.DataRepositoryImpl;
+import repository.remote.FriendRepositoryImpl;
+import repository.remote.MessageRepositoryImpl;
+import repository.remote.PublicMessageRepositoryImpl;
+import repository.remote.dao.FriendDaoSQL;
+import repository.remote.dao.MessageDaoSQL;
+import repository.remote.dao.PublicMessageDaoSQL;
 import tool.AsyncCallback;
 import tool.StaticRepository;
 import tool.exception.InputCanceledException;
@@ -20,20 +24,22 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
 
     private MessageListGet messageListGet;
     private MessageSend messageSend;
+    private MessageListRankedGet messageListRankedGet;
 
     private MessagePublicSend messagePublicSend;
     private MessagePublicListGet messagePublicListGet;
 
-    public MainPresenter() {
-        this.friendListGet = new FriendListGet(new DataRepositoryImpl());
-        this.friendListAdd = new FriendListAdd(new ActionRepositoryImpl());
 
-        this.messageSend = new MessageSend(new ActionRepositoryImpl());
-        this.messageListGet = new MessageListGet(new DataRepositoryImpl());
-        
-        this.messagePublicSend = new MessagePublicSend(new ActionRepositoryImpl());
-        this.messagePublicListGet = new MessagePublicListGet(new DataRepositoryImpl());
-        
+    public MainPresenter() {
+        this.friendListGet = new FriendListGet(new FriendRepositoryImpl(new FriendDaoSQL()));
+        this.friendListAdd = new FriendListAdd(new FriendRepositoryImpl(new FriendDaoSQL()));
+
+        this.messageSend = new MessageSend(new MessageRepositoryImpl(new MessageDaoSQL()));
+        this.messageListGet = new MessageListGet(new MessageRepositoryImpl(new MessageDaoSQL()));
+        this.messageListRankedGet = new MessageListRankedGet(new MessageRepositoryImpl(new MessageDaoSQL()));
+
+        this.messagePublicSend = new MessagePublicSend(new PublicMessageRepositoryImpl(new PublicMessageDaoSQL()));
+        this.messagePublicListGet = new MessagePublicListGet(new PublicMessageRepositoryImpl(new PublicMessageDaoSQL()));
     }
 
     public void menuItemEnter(int i) {
@@ -41,7 +47,7 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
             switch (i){
                 case 1: getView().renderNewFriend(); break;
                 case 2: getView().renderFriendList(); break;
-                
+
                 case 3: getView().renderNewMessage(); break;
                 case 4: getView().renderMessageList(); break;
 
@@ -49,7 +55,7 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
                 case 6: getView().renderPublicMessageList(); break;
 
                 case 7: getView().renderTopMessages(); break;
-                
+
                 case 0: return;
             }
         } catch (InputCanceledException e){
@@ -145,11 +151,11 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
                 getView().showInfoMessage("No Public Message Found!");
                 getView().render();
             }
-        }, new MessagePublicListGet.Params(StaticRepository.SESSION_TOKEN, login));
+        }, new MessagePublicListGet.Params(login));
     }
 
     public void getRankedMessageList() {
-        new MessageListRankedGet(new DataRepositoryImpl()).execute(new AsyncCallback<List<Word>>() {
+        messageListRankedGet.execute(new AsyncCallback<List<Word>>() {
             @Override
             public void onSuccess(List<Word> words) {
                 getView().showRankedMessageList(words);

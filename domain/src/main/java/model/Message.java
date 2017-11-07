@@ -9,7 +9,7 @@ public class Message {
     private Integer userToId;
 
     private String userFromName;
-    private String userToame;
+    private String userToName;
 
     private String text;
     private Long date;
@@ -24,7 +24,7 @@ public class Message {
     public Message(String text, String from, String to, Long date) {
         this.text = text;
         this.userFromName = from;
-        this.userToame = to;
+        this.userToName = to;
         this.date = date;
     }
 
@@ -52,7 +52,12 @@ public class Message {
         return userFromName;
     }
 
-    public String getUserToame() {
-        return userToame;
+    public String getUserToName() {
+        return userToName;
+    }
+
+    @Override
+    public String toString() {
+        return getUserFromName() + ": " + date + "\n" + getText();
     }
 }

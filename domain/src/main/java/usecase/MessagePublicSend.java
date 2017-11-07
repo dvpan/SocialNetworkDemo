@@ -1,13 +1,13 @@
 package usecase;
 
 import base.UseCase;
-import repository.ActionRepository;
+import repository.PublicMessageRepository;
 import tool.AsyncCallback;
 
 public class MessagePublicSend extends UseCase<Void, MessagePublicSend.Params>{
-    private final ActionRepository mRepository;
+    private final PublicMessageRepository mRepository;
 
-    public MessagePublicSend(ActionRepository repository) {
+    public MessagePublicSend(PublicMessageRepository repository) {
         mRepository = repository;
     }
 

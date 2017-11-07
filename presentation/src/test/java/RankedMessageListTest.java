@@ -1,14 +1,13 @@
-package test;
-
 import db.DatabaseSingleton;
 import model.Word;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import repository.ActionRepositoryImpl;
-import repository.DataRepositoryImpl;
+import repository.local.MessageRepositoryImpl;
+import repository.local.UserRepositoryImpl;
 import tool.AsyncCallback;
 import usecase.MessageListRankedGet;
 import usecase.MessageSend;
@@ -21,7 +20,7 @@ import java.util.List;
 
 @RunWith(Parameterized.class)
 public class RankedMessageListTest {
-    @Parameterized.Parameter(0)
+    @Parameterized.Parameter()
     public String messageText;
     @Parameterized.Parameter(1)
     static public List<Word> words;
@@ -39,8 +38,10 @@ public class RankedMessageListTest {
             add(new Word("hi", 1));
         }};
 
-        String message2 = "hello buna chao ave hola namaste hello sup hello bonjour zdorova ave hola sup aloha hello zdorova" +
-                "hello chao selamat hello hi sup hello sup ola selamat hello zdorova ave hola namaste hello shalom";
+        String message2 = "hello buna chao ave hola namaste hello sup hello " +
+                "bonjour zdorova ave hola sup aloha hello zdorova" +
+                "hello chao selamat hello hi sup hello sup ola " +
+                "selamat hello zdorova ave hola namaste hello shalom";
         List<Word> actualRating2 = new ArrayList<Word>(){{
             add(new Word("hello", 8));
             add(new Word("sup", 4));
@@ -57,7 +58,6 @@ public class RankedMessageListTest {
         String message3 = "";
         List<Word> actualRating3 = new ArrayList<Word>(){{ }};
 
-
         return Arrays.asList(new Object[][]{
                 {message1, actualRating1},
                 {message2, actualRating2},
@@ -67,7 +67,7 @@ public class RankedMessageListTest {
 
     @BeforeClass
     public static void signIn(){
-        new UserSignIn(new ActionRepositoryImpl()).execute(new AsyncCallback<String>() {
+        new UserSignIn(new UserRepositoryImpl()).execute(new AsyncCallback<String>() {
             @Override
             public void onSuccess(String userToken) {
                 token = userToken;
@@ -78,17 +78,21 @@ public class RankedMessageListTest {
     @Test
     public void testTopWords() {
         sendFakeMessage(token, messageText);
-        new MessageListRankedGet(new DataRepositoryImpl()).execute(new AsyncCallback<List<Word>>() {
+        new MessageListRankedGet(new MessageRepositoryImpl()).execute(new AsyncCallback<List<Word>>() {
             @Override
             public void onSuccess(List<Word> words) {
                 Assert.assertEquals(words, RankedMessageListTest.this.words);
-                DatabaseSingleton.getInstance().clearMessageList(token);
             }
         }, token);
     }
 
+    @After
+    public void clearMessageList(){
+        DatabaseSingleton.getInstance().clearMessageList(token);
+    }
+
     private void sendFakeMessage(String token, String message) {
-        new MessageSend(new ActionRepositoryImpl()).execute(new AsyncCallback<>(),
+        new MessageSend(new MessageRepositoryImpl()).execute(new AsyncCallback<>(),
                 new MessageSend.Params(token, "tan", message));
     }
 }

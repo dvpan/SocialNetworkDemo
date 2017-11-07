@@ -2,7 +2,7 @@ package usecase;
 
 import base.UseCase;
 import model.Message;
-import repository.DataRepository;
+import repository.MessageRepository;
 import tool.AsyncCallback;
 
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * UseCase, предназначенный для получения списка сообщений авторизованного пользователя.
  */
 public class MessageListGet extends UseCase<ArrayList<Message>, MessageListGet.Params> {
-    private final DataRepository mRepository;
+    private final MessageRepository mRepository;
 
-    public MessageListGet(DataRepository repository) {
+    public MessageListGet(MessageRepository repository) {
         mRepository = repository;
     }
 

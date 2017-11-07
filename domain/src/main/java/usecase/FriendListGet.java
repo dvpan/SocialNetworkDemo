@@ -2,7 +2,7 @@ package usecase;
 
 import base.UseCase;
 import model.User;
-import repository.DataRepository;
+import repository.FriendRepository;
 import tool.AsyncCallback;
 
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * UseCase, предназначенный для получения списка "друзей" авторизованного пользователя.
  */
 public class FriendListGet extends UseCase<ArrayList<User>, String> {
-    private final DataRepository mRepository;
+    private final FriendRepository mRepository;
 
-    public FriendListGet(DataRepository repository) {
+    public FriendListGet(FriendRepository repository) {
         mRepository = repository;
     }
 

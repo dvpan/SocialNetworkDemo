@@ -1,6 +1,7 @@
 package presenter;
 
-import repository.ActionRepositoryImpl;
+import repository.remote.UserRepositoryImpl;
+import repository.remote.dao.UserDaoSQL;
 import tool.AsyncCallback;
 import tool.exception.InputCanceledException;
 import usecase.UserSignIn;
@@ -15,8 +16,8 @@ public class UserEnterPresenter extends Presenter<UserEnterPresenter.View>{
     UserSignUp userSignUp;
 
     public UserEnterPresenter() {
-        this.userSignIn = new UserSignIn(new ActionRepositoryImpl());
-        this.userSignUp = new UserSignUp(new ActionRepositoryImpl());
+        this.userSignIn = new UserSignIn(new UserRepositoryImpl(new UserDaoSQL()));
+        this.userSignUp = new UserSignUp(new UserRepositoryImpl(new UserDaoSQL()));
     }
 
     @Override

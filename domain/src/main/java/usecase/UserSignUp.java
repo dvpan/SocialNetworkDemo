@@ -1,16 +1,16 @@
 package usecase;
 
 import base.UseCase;
-import repository.ActionRepository;
+import repository.UserRepository;
 import tool.AsyncCallback;
 
 /**
  * UseCase, предназначенный регистрации пользователя.
  */
 public class UserSignUp extends UseCase<Boolean, UserSignUp.Params> {
-    private final ActionRepository mRepository;
+    private final UserRepository mRepository;
 
-    public UserSignUp(ActionRepository repository) {
+    public UserSignUp(UserRepository repository) {
         mRepository = repository;
     }
 

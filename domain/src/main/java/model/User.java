@@ -7,15 +7,7 @@ public class User {
     private Integer id;
     private String name;
     private String login;
-    private String description;
     private Integer hashPass;
-
-    public User(Integer id, String name, String login, String description) {
-        this.id = id;
-        this.name = name;
-        this.login = login;
-        this.description = description;
-    }
 
     public User(String name, String login) {
         this.name = name;
@@ -38,10 +30,6 @@ public class User {
 
     public String getLogin() {
         return login;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public Integer getPassword() {

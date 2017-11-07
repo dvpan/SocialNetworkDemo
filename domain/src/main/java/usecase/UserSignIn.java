@@ -1,7 +1,7 @@
 package usecase;
 
 import base.UseCase;
-import repository.ActionRepository;
+import repository.UserRepository;
 import tool.AsyncCallback;
 
 /**
@@ -9,9 +9,9 @@ import tool.AsyncCallback;
  * то он получит токен авторизации.
  */
 public class UserSignIn extends UseCase<String, UserSignIn.Params> {
-    private final ActionRepository mRepository;
+    private final UserRepository mRepository;
 
-    public UserSignIn(ActionRepository repository) {
+    public UserSignIn(UserRepository repository) {
         mRepository = repository;
     }
 

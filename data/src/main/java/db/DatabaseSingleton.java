@@ -47,7 +47,8 @@ public class DatabaseSingleton{
     public Boolean signUp(String name, String login, String password) {
         Boolean response = !databaseStorage.loginExist(login);
         if(response)
-            databaseStorage.getUsers().add(new User(name, login, password.hashCode()).setId(databaseStorage.getUsers().size()));
+            databaseStorage.getUsers().add(new User(name, login, password.hashCode()).
+                    setId(databaseStorage.getUsers().size()));
         return response;
     }
 
@@ -129,8 +130,8 @@ public class DatabaseSingleton{
         return databaseStorage.sendPublicMessage(message);
     }
 
-    public ArrayList<PublicMessage> getPublicMessageList(String token, String login) {
-        User user = databaseStorage.getActiveUser(token);
+    public ArrayList<PublicMessage> getPublicMessageList(String login) {
+        User user = databaseStorage.getUser(login);
         if(user == null) return null;
 
         ArrayList<PublicMessage> messages = new ArrayList<>();

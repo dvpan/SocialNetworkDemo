@@ -38,6 +38,6 @@ public class Friend {
     }
 
     public boolean equals(Friend friend) {
-        return friend.getUserId().equals(userId)&&friend.getFriendId().equals(friendId);
+        return friend.getUserId().equals(userId) && friend.getFriendId().equals(friendId);
     }
 }

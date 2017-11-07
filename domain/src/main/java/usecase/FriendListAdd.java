@@ -1,7 +1,7 @@
 package usecase;
 
 import base.UseCase;
-import repository.ActionRepository;
+import repository.FriendRepository;
 import tool.AsyncCallback;
 
 
@@ -10,14 +10,14 @@ import tool.AsyncCallback;
  * пользователя в "друзья" авторизованного пользователя.
  */
 public class FriendListAdd extends UseCase<Boolean, FriendListAdd.Params> {
-    private final ActionRepository mRepository;
+    private final FriendRepository mRepository;
 
-    public FriendListAdd(ActionRepository repository) {
+    public FriendListAdd(FriendRepository repository) {
         mRepository = repository;
     }
 
     @Override
-    protected void createAsyncUseCase(AsyncCallback<Boolean> callback, FriendListAdd.Params params) {
+    protected void createAsyncUseCase(AsyncCallback<Boolean> callback, Params params) {
         mRepository.addToFriendList(callback, params.token, params.login);
     }
 

@@ -115,7 +115,6 @@ public class MainView extends BaseView implements MainPresenter.View {
     @Override
     public void showMessageList(List<Message> messages) {
         println("Message List: ");
-        messages.forEach(message -> println(
-                message.getUserFromName() + ":\n" + message.getText()));
+        messages.forEach(message -> println(message.toString()));
     }
 }

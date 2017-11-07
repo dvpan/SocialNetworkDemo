@@ -1,7 +1,7 @@
 package usecase;
 
 import base.UseCase;
-import repository.ActionRepository;
+import repository.MessageRepository;
 import tool.AsyncCallback;
 
 /**
@@ -9,9 +9,9 @@ import tool.AsyncCallback;
  * от авторизованного пользователя другому пользователю.
  */
 public class MessageSend extends UseCase<Void, MessageSend.Params> {
-    private final ActionRepository mRepository;
+    private final MessageRepository mRepository;
 
-    public MessageSend(ActionRepository repository) {
+    public MessageSend(MessageRepository repository) {
         mRepository = repository;
     }
 
