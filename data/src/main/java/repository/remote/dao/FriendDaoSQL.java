@@ -1,6 +1,8 @@
 package repository.remote.dao;
 
 import model.User;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import repository.remote.mapper.UserMapper;
 
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 
 public class FriendDaoSQL extends BaseDaoSQL {
 
+    @CacheEvict(value = "friends", allEntries = true)
     public Boolean addFriend(String token, String login) {
         String query = "" +
                 "INSERT INTO \n" +
@@ -37,6 +40,7 @@ public class FriendDaoSQL extends BaseDaoSQL {
         return false;
     }
 
+    @Cacheable(value = "friends")
     public ArrayList<User> getFriendList(String token) {
         String query = "" +
                 "SELECT\n" +

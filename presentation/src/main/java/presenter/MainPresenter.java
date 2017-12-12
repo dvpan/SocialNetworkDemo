@@ -195,7 +195,5 @@ public class MainPresenter extends Presenter<MainPresenter.View> {
         void showRankedMessageList(List<Word> words);
 
         void showPublicMessageList(List<PublicMessage> messages);
-
-
     }
 }

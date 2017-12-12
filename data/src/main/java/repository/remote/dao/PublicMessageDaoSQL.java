@@ -1,6 +1,8 @@
 package repository.remote.dao;
 
 import model.PublicMessage;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import repository.remote.mapper.PublicMessageMapper;
 
 import java.io.IOException;
@@ -10,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PublicMessageDaoSQL extends BaseDaoSQL {
+
+    @CacheEvict(value = "public_messages", allEntries = true)
     public Boolean sendPublicMessage(String token, String text, long time) {
         String query = "" +
                 "INSERT INTO \n" +
@@ -36,6 +40,7 @@ public class PublicMessageDaoSQL extends BaseDaoSQL {
         return false;
     }
 
+    @Cacheable(value = "public_messages")
     public ArrayList<PublicMessage> getPublicMessageList(String login) {
         String query = "" +
                 "SELECT * \n" +
